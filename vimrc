@@ -1,4 +1,5 @@
 set cscoperelative
+set relativenumber
 set nocompatible              " be iMproved, required
 set cindent
 set shiftwidth=2
@@ -35,12 +36,25 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 
 Plugin 'mattn/emmet-vim'
 
-Plugin 'Valloric/YouCompleteMe', { 'do': './install.py --tern-completer' }
+"Plugin 'Valloric/YouCompleteMe', { 'do': './install.py --tern-completer' }
 
 
 "https://github.com/terryma/vim-multiple-cursors
 Plugin 'terryma/vim-multiple-cursors'
 
+"Swift plugin
+Plugin 'jph00/swift-apple'
+
+"Swift vim error display messges
+"https://github.com/vim-syntastic/syntastic
+Plugin 'vim-syntastic/syntastic'
+Plugin 'TheCodedSelf/syntastic-swift'
+
+
+"Bundle 'scrooloose/syntastic'
+Bundle 'dbakker/vim-lint'
+
+"
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -214,10 +228,33 @@ if has("cscope")
 endif
 
 " Start autocompletion after 4 chars
-let g:ycm_min_num_of_chars_for_completion = 4
-let g:ycm_min_num_identifier_candidate_chars = 4
-let g:ycm_enable_diagnostic_highlighting = 0
-" Don't show YCM's preview window [ I find it really annoying ]
-set completeopt-=preview
-let g:ycm_add_preview_to_completeopt = 0
-let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+"let g:ycm_min_num_of_chars_for_completion = 4
+"let g:ycm_min_num_identifier_candidate_chars = 4
+"let g:ycm_enable_diagnostic_highlighting = 0
+"" Don't show YCM's preview window [ I find it really annoying ]
+"set completeopt-=preview
+"let g:ycm_add_preview_to_completeopt = 0
+"let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+
+
+execute pathogen#infect()
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1 
+
+"let g:syntastic_python_checkers = ['pylint']
+let g:syntastic_swift_checkers = ['swift', 'swiftlint']
+let g:syntastic_cpp_checkers= ['clang_tidy', 'cppcheck', 'cpplint' ]
+"let g:syntastic_checkers_c= ['clang-tidy', 'cppcheck', 'cpplint' ]
+
+"Synastic
+"let g:syntastic_cpp_compiler = 'g++'
+"let g:syntastic_cpp_compiler_options = ' -std=c++14 -stdlib=libc++'
+"let g:syntastic_cpp_check_header = 1
+"let g:syntastic_debug=1

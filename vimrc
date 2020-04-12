@@ -1,5 +1,10 @@
-set cscoperelative
+"$(MAKE) $(MAKESILENT) -f CMakeFiles/xml_parser.dir/build.make CMakeFiles/xml_parser.dir/dependfrom the talk https://www.youtube.com/watch?v=XA2WjJbmmoM
+set path+=**
+set wildmenu
+"End of config from the talk https://www.youtube.com/watch?v=XA2WjJbmmoM
+set splitbelow
 set relativenumber
+set cscoperelative
 set nocompatible              " be iMproved, required
 set cindent
 set shiftwidth=2
@@ -49,12 +54,12 @@ Plugin 'jph00/swift-apple'
 "https://github.com/vim-syntastic/syntastic
 Plugin 'vim-syntastic/syntastic'
 Plugin 'TheCodedSelf/syntastic-swift'
-
+Plugin 'preservim/nerdtree'
+Plugin 'bluk/swifty-vim'
 
 "Bundle 'scrooloose/syntastic'
 Bundle 'dbakker/vim-lint'
 
-"
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -231,10 +236,14 @@ endif
 "let g:ycm_min_num_of_chars_for_completion = 4
 "let g:ycm_min_num_identifier_candidate_chars = 4
 "let g:ycm_enable_diagnostic_highlighting = 0
-"" Don't show YCM's preview window [ I find it really annoying ]
+" Don't show YCM's preview window [ I find it really annoying ]
 "set completeopt-=preview
 "let g:ycm_add_preview_to_completeopt = 0
 "let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+
+"Automatical have nerdtree open 
+"autocmd vimenter * NERDTree
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 
 execute pathogen#infect()
@@ -248,8 +257,8 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 1 
 
-"let g:syntastic_python_checkers = ['pylint']
-let g:syntastic_swift_checkers = ['swift', 'swiftlint']
+let g:syntastic_python_checkers = ['pylint']
+"let g:syntastic_swift_checkers = ['swift', 'swiftlint']
 let g:syntastic_cpp_checkers= ['clang_tidy', 'cppcheck', 'cpplint' ]
 "let g:syntastic_checkers_c= ['clang-tidy', 'cppcheck', 'cpplint' ]
 
@@ -258,3 +267,51 @@ let g:syntastic_cpp_checkers= ['clang_tidy', 'cppcheck', 'cpplint' ]
 "let g:syntastic_cpp_compiler_options = ' -std=c++14 -stdlib=libc++'
 "let g:syntastic_cpp_check_header = 1
 "let g:syntastic_debug=1
+
+
+" Remove newbie crutches in Command Mode
+"cnoremap <Down> <Nop>
+"cnoremap <Left> <Nop>
+"cnoremap <Right> <Nop>
+"cnoremap <Up> <Nop>
+"
+" Remove newbie crutches in Insert Mode
+inoremap <Down> <Nop>
+inoremap <Left> <Nop>
+inoremap <Right> <Nop>
+inoremap <Up> <Nop>
+
+" Remove newbie crutches in Normal Mode
+nnoremap <Down> <Nop>
+nnoremap <Left> <Nop>
+nnoremap <Right> <Nop>
+nnoremap <Up> <Nop>
+
+" Remove newbie crutches in Visual Mode
+vnoremap <Down> <Nop>
+vnoremap <Left> <Nop>
+vnoremap <Right> <Nop>
+vnoremap <Up> <Nop>
+
+
+" Build the current Swift package. If in a 'Tests' directory, also build the tests.
+autocmd FileType swift nmap <leader>b <Plug>(swift-spm-build)
+" Run the current Swift package tests.
+autocmd FileType swift nmap <leader>t <Plug>(swift-spm-test)
+" Run the test under the current cursor.
+autocmd FileType swift nmap <leader>ft <Plug>(swift-spm-test-function-only)
+" Run swift package generate-xcodeproj
+autocmd FileType swift nmap <leader>sgx <Plug>(swift-spm-generate-xcodeproj)
+" Run swift test --generate-linuxmain
+autocmd FileType swift nmap <leader>sgl <Plug>(swift-spm-test-generate-linuxmain)
+
+" Run SwiftFormat on save.
+let g:swift_swiftformat_autosave = 1
+" Run SwiftLint on save.
+let g:swift_swiftlint_autosave = 1
+" If there are errors during autosave, add all errors in the quickfix window.
+let g:swift_list_type_commands = { 'Autosave': 'quickfix' }
+
+nnoremap ,cpp :-1read $HOME/.vim/templates/main.cpp<CR>4ja
+nnoremap ,c :-1read $HOME/.vim/templates/main.c<CR>4ja
+nnoremap ,py :-1read $HOME/.vim/templates/main.py<CR>2ja

@@ -1,6 +1,7 @@
 "$(MAKE) $(MAKESILENT) -f CMakeFiles/xml_parser.dir/build.make CMakeFiles/xml_parser.dir/dependfrom the talk https://www.youtube.com/watch?v=XA2WjJbmmoM
 set path+=**
 set wildmenu
+colorscheme xoria256
 "End of config from the talk https://www.youtube.com/watch?v=XA2WjJbmmoM
 set splitbelow
 set relativenumber
@@ -11,7 +12,6 @@ set shiftwidth=2
 set expandtab
 
 filetype off                  " required
-let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
 
 " set the runtime path to include Vundle and initialize
@@ -22,6 +22,14 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
+
+"Plugin 'vim-scripts/xoria256.vim.'
+"
+" Track the engine.
+Plugin 'SirVer/ultisnips'
+
+" Snippets are separated from the engine. Add this if you want them:
+Plugin 'honza/vim-snippets'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -39,13 +47,13 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 " different version somewhere else.
 " Plugin 'ascenator/L9', {'name': 'newL9'}
 
-Plugin 'mattn/emmet-vim'
+"Plugin 'mattn/emmet-vim'
 
 "Plugin 'Valloric/YouCompleteMe', { 'do': './install.py --tern-completer' }
 
 
 "https://github.com/terryma/vim-multiple-cursors
-Plugin 'terryma/vim-multiple-cursors'
+"Plugin 'terryma/vim-multiple-cursors'
 
 "Swift plugin
 Plugin 'jph00/swift-apple'
@@ -315,3 +323,6 @@ let g:swift_list_type_commands = { 'Autosave': 'quickfix' }
 nnoremap ,cpp :-1read $HOME/.vim/templates/main.cpp<CR>4ja
 nnoremap ,c :-1read $HOME/.vim/templates/main.c<CR>4ja
 nnoremap ,py :-1read $HOME/.vim/templates/main.py<CR>2ja
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"

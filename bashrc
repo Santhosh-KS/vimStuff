@@ -123,3 +123,10 @@ export PYTHON_LIBRARY="/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu/libpython
 
 CSCOPE_DB='/home/l-8053/work/swift-apis'
 export CSCOPE_DB
+
+# To support xoria256.vim color scheme. We need these lines below.
+# sudo apt install vim-gnome
+if [ "$COLORTERM" == "gnome-terminal" ]; then
+    export TERM=xterm-256color
+fi
+
